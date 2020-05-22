@@ -1,0 +1,113 @@
+openapi: 3.0.0
+
+info:
+  title: Taba Open API Demo
+  version: 1.0.0
+
+servers:
+- url: https://tabakazu.com/api/v1
+  description: 本番 API サーバ
+- url: http://localhost:3000/api/v1
+  description: ローカル API サーバ
+
+paths:
+  /posts:
+    get:
+      summary: 投稿一覧 API
+      description: 記事一覧を返す
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: 
+                items:
+                  $ref: '#/components/schemas/Post'
+    post:
+      summary: 記事投稿 API
+      description: 記事を作成
+      parameters:
+        - name: post
+          in: body
+          description: 投稿データ
+          required: true
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              body:
+                type: string
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: 
+                  $ref: '#/components/schemas/Post'
+
+  /posts/{id}:
+    get:
+      summary: 投稿詳細 API
+      description: 記事詳細を返す
+      parameters:
+        - name: id
+          in: path
+          description: 投稿 id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: 
+                  $ref: '#/components/schemas/Post'
+    put:
+      summary: 投稿更新 API
+      description: 投稿を更新
+      parameters:
+        - name: post
+          in: body
+          description: 投稿データ
+          required: true
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              body:
+                type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: 
+                  $ref: '#/components/schemas/Post'
+    delete:
+      summary: 投稿削除 API
+      description: 投稿を削除
+      responses:
+        '204':
+          description: ''
+
+components:
+  schemas:  
+    Post:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: my title 1
+        body:
+          type: string
+          example: body body body body
+        created_at:
+          type: string
+          example: 2020-01-01T15:00:00Z
+        updated_at:
+          type: string
+          example: 2020-01-01T15:00:00Z
