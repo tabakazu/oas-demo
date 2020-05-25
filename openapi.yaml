@@ -17,6 +17,7 @@ paths:
       description: 記事一覧を返す
       responses:
         '200':
+          description: 取得成功
           content:
             application/json:
               schema: 
@@ -26,10 +27,8 @@ paths:
       summary: 記事投稿 API
       description: 記事を作成
       parameters:
-        - name: post
-          in: body
-          description: 投稿データ
-          required: true
+        - in: query
+          name: post
           schema:
             type: object
             properties:
@@ -37,8 +36,11 @@ paths:
                 type: string
               body:
                 type: string
+          required: true
+          description: 投稿データ
       responses:
         '201':
+          description: 作成成功
           content:
             application/json:
               schema: 
@@ -49,14 +51,15 @@ paths:
       summary: 投稿詳細 API
       description: 記事詳細を返す
       parameters:
-        - name: id
-          in: path
-          description: 投稿 id
-          required: true
+        - in: path
+          name: id
           schema:
             type: integer
+          required: true
+          description: 投稿 id
       responses:
         '200':
+          description: 取得成功
           content:
             application/json:
               schema: 
@@ -65,10 +68,14 @@ paths:
       summary: 投稿更新 API
       description: 投稿を更新
       parameters:
-        - name: post
-          in: body
-          description: 投稿データ
+        - in: path
+          name: id
+          schema:
+            type: integer
           required: true
+          description: 投稿 id
+        - in: query
+          name: post
           schema:
             type: object
             properties:
@@ -76,8 +83,11 @@ paths:
                 type: string
               body:
                 type: string
+          required: true
+          description: 投稿データ
       responses:
         '200':
+          description: 更新成功
           content:
             application/json:
               schema: 
@@ -85,9 +95,16 @@ paths:
     delete:
       summary: 投稿削除 API
       description: 投稿を削除
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: 投稿 id
       responses:
         '204':
-          description: ''
+          description: 削除成功
 
 components:
   schemas:  
