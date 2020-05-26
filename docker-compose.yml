@@ -13,3 +13,7 @@ services:
       - ./openapi.yaml:/openapi.yaml
     environment:
       SWAGGER_JSON: /openapi.yaml
+  openapi-generator-cli:
+    image: openapitools/openapi-generator-cli
+    volumes:
+      - .:/local
